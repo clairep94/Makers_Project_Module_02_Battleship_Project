@@ -15,4 +15,4 @@ class TerminalIO:
 io = TerminalIO() #creates an instance of terminalIO
 game = Game() #creates an instance of Game
 user_interface = UserInterface(io, game) #creates an instance of UI using the io and game
-user_interface.run() #
+user_interface.run() #see UserInterface.run() for gameplay.

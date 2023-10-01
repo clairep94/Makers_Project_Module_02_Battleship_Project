@@ -110,6 +110,6 @@ class UserInterface:
                 if self.game.ship_at(row, col):
                     row_cells.append("S")
                 else:
-                    row_cells.append("+")
+                    row_cells.append(".")
             rows.append("".join(row_cells))
         return "\n".join(rows)
