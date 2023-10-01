@@ -1,11 +1,16 @@
 class ShipPlacement:
     def __init__(self, length, orientation, row, col):
+        '''
+        Stores the length and orientation of the ship, as well as the row/col of the first unit of the ship.'''
         self.length = length
         self.orientation = orientation
         self.row = row
         self.col = col
 
     def covers(self, row, col):
+        '''
+        Checks if there is a ship in a certain row/column
+        '''
         if self.orientation == "vertical":
             if self.col != col:
                 return False
