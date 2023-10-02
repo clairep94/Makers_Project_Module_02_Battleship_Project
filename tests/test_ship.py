@@ -44,7 +44,6 @@ Checking if ship is a certain coordinate
 '''
 def test_ship_at():
     ship = Ship(4)
-    ship = Ship(4)
     ship.place_ship("horizontal", 3, 4)
     assert ship.ship_at(3, 6) == True
     assert ship.ship_at(10, 10) == False

@@ -44,14 +44,10 @@ class Ship:
         col -= 1
 
         return any(unit["coordinates"] == (row, col) for unit in self.units)
-        # ship_at = False
-        # for unit in self.units.values():
-        #     if unit["coordinates"] == (row, col):
-        #         ship_at = True
-        # return ship_at
     
-
-ship = Ship(5)
-ship.place_ship("vertical", 1, 2)
-
-print(ship.units)
+    # def get_ship_units(self) -> bool:
+    #     '''
+    #     Params: None
+    #     Returns: self.units
+    #     Side Effects: None
+    #     '''
