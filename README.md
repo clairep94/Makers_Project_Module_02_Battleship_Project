@@ -58,8 +58,7 @@ I would like a nice command line interface that lets me enter ship positions and
 shots using commands.
 ```
 
-* Ship positions done, can be improved
-* Shots to do
+* DONE
 
 ```
 As a player
@@ -75,7 +74,7 @@ So that I can have a coherent game
 I would like ships to be constrained to be on the board
 ```
 
-* Untested
+* DONE
 
 ```
 As a player
@@ -91,7 +90,7 @@ So that I can win the game
 I would like to be able to fire at my opponent's board
 ```
 
-* Not done
+* Partial
 
 ```
 As a player
@@ -99,7 +98,7 @@ So that I can refine my strategy
 I would like to know when I have sunk an opponent's ship
 ```
 
-* Untested
+* Done
 
 ```
 As a player
@@ -115,7 +114,7 @@ So that I can consider my next shot
 I would like to be able to see my hits and misses so far
 ```
 
-* Untested
+* Done
 
 ```
 As a player
@@ -123,7 +122,7 @@ So that I can play against a human opponent
 I would like to play a two-player game
 ```
 
-* Not done
+* Partial
 
 
 <!-- BEGIN GENERATED SECTION DO NOT EDIT -->
