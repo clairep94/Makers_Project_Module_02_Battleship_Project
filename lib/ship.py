@@ -45,9 +45,11 @@ class Ship:
 
         return any(unit["coordinates"] == (row, col) for unit in self.units)
     
-    # def get_ship_units(self) -> bool:
-    #     '''
-    #     Params: None
-    #     Returns: self.units
-    #     Side Effects: None
-    #     '''
+    def check_if_sank(self) -> bool:
+        '''
+        Params: None
+        Returns: True if all unit['hit'] in ship.units are True, meaning that all units in the ship have been hit
+        and ship has sank.
+
+        '''
+        return all(unit['hit'] for unit in self.units)

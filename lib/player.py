@@ -18,7 +18,7 @@ class Player:
             1: "ship", # "S" or "*"
             2: "miss", # "/"
             3: "hit", # "x"
-            4: "full_ship_hit" # "X"
+            4: "sank" # "X"
         }
 
     def create_board(self, rows, columns) -> list:
@@ -37,7 +37,7 @@ class Player:
         '''
         Params: Ship object, orientation, row & column
         Returns: none
-        Side effects: adds new ship object to self.ships, updates the board? 
+        Side effects: adds new ship object to self.ships, updates the board. 
         CHECK IF SHIP IS IN BOUNDS -- check if the unit coordinate of the last unit is out of bounds (ie if len(row) or len(board) < last coordinate)
         '''
         # call .place_ship() method from Ship class.
@@ -50,6 +50,9 @@ class Player:
         if last_ship_unit_coordinates[0] > self.rows or last_ship_unit_coordinates[1] > self.columns:
             raise Exception("Ship placement out of bounds.")
 
+        # add ship to player.ships list:
+        self.ships.append(ship)
+
         # iterate through each unit of ship.units, and change status code of the matching board space
         # to 1.
         for unit in ship.units:
@@ -57,17 +60,7 @@ class Player:
             c = unit["coordinates"][1]
             self.board[r][c] = 1
 
-
-    def update_board():
-        '''
-        Params: none
-        Returns: self.board
-        Side effects: gets all data from self.
-        '''
-        pass
-
-
-    def check_for_hit(row:int, col:int) -> None:
+    def check_for_hit(self, row:int, col:int) -> None:
         '''
         Params: row and column of space to check.
 
@@ -77,4 +70,40 @@ class Player:
         If code 1 ("ship") --> change space status to 3 ("hit"). --> Return "hit"
             Then check if the ship hit was sank. If so, change all spaces for that ship to code 4. --> Return "sank"
         '''
-        pass
+        #catch error if row or int are out of bounds #####
+        if row > self.rows or col > self.columns:
+            raise Exception("Space is out of bounds")
+
+        # convert to 0-index to compare with self.board arrays
+        row -= 1
+        col -=1
+
+        # find the ship that contains board_space_status
+        if self.board[row][col] == 0: #no ship
+            self.board[row][col] = 2 #miss
+            return "miss"
+        elif self.board[row][col] == 1: #ship
+            # find the ship for which unit['coordinates'] == (row,col)
+            ship:Ship = next(filter(lambda ship: any(unit['coordinates'] == (row, col) for unit in ship.units), self.ships), None)
+
+            # find the ship.unit for which unit['coordinates'] == (row,col)
+            ship_unit = next(filter(lambda unit: unit['coordinates'] == (row,col), ship.units), None)
+
+            # change ship.unit "hit" to True ######
+            ship_unit['hit'] = True
+        
+            # check for unit['hit'] for all units in ship.units -- if all True, change status to 4, return "sank"
+            if ship.check_if_sank() == True:
+                for unit in ship.units:
+                    r = unit["coordinates"][0]
+                    c = unit["coordinates"][1]
+                    self.board[r][c] = 4
+                return 'sank'
+
+            #else:
+            self.board[row][col] = 3
+            return "hit"
+
+        else: #space was already hit before. throw error
+            raise Exception("This board space has already been tried. Please choose another.")
+
