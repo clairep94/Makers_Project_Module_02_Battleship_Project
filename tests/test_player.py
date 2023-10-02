@@ -117,7 +117,7 @@ def test_error_overlapping_ship():
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
     with pytest.raises(Exception) as e: 
-        player_1.place_ship(ship=ship_3, orientation="horizontal", row=3, col=2) #invalid ship placement
+        player_1.place_ship(ship=ship_3, orientation="horizontal", row=3, col=2) #invalid ship
     assert str(e.value) == "Desired board spaces already contain a ship. Please choose another space."
 
 

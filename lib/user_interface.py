@@ -66,14 +66,14 @@ class UserInterface:
 
 ###---------------------------------------##
 
-
     def _ships_unplaced_message(self): 
         '''
         Prints remaining ships represented by their length in a string.
         2, 3, 4, 5 to start.
         '''
-        ship_lengths = [str(ship.length) for ship in self.game.unplaced_ships()]
-        return ", ".join(ship_lengths)
+        # ship_lengths = [str(ship.length) for ship in self.game.unplaced_ships()]
+        # return ", ".join(ship_lengths)
+        return ", ".join(self.game.ship_sizes)
 
     def _prompt_for_ship_placement(self): 
         '''
