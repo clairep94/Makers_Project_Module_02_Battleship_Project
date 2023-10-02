@@ -1,3 +1,4 @@
+## DEPRECIATED -- NOW IN SHIP CLASS
 # from lib.ship_placement import ShipPlacement
 
 # """

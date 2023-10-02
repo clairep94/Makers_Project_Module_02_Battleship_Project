@@ -82,7 +82,7 @@ So that I can have a coherent game
 I would like ships to be constrained not to overlap
 ```
 
-* Untested
+* DONE
 
 ```
 As a player

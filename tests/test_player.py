@@ -83,6 +83,48 @@ def test_error_place_ship_out_of_bounds():
 
 
 '''
+Catch error for placing a ship on a space that is already occupied with a ship.
+'''
+def test_error_overlapping_ship():
+    player_1 = Player()
+    ship_1 = Ship(4)
+    ship_2 = Ship(2)
+    ship_3 = Ship(3)
+    player_1.place_ship(ship=ship_1, orientation="vertical", row=3, col=4) #valid ship placement
+    assert player_1.board == [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+    player_1.place_ship(ship=ship_2, orientation="vertical", row=2, col=6) #valid ship placement
+    assert player_1.board == [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 1, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+    with pytest.raises(Exception) as e: 
+        player_1.place_ship(ship=ship_3, orientation="horizontal", row=3, col=2) #invalid ship placement
+    assert str(e.value) == "Desired board spaces already contain a ship. Please choose another space."
+
+
+
+
+
+'''
 Checking for hit on an empty space
 '''
 def test_check_for_hit_empty_space():

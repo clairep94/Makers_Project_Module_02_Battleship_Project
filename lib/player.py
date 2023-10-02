@@ -38,7 +38,8 @@ class Player:
         Params: Ship object, orientation, row & column
         Returns: none
         Side effects: adds new ship object to self.ships, updates the board. 
-        CHECK IF SHIP IS IN BOUNDS -- check if the unit coordinate of the last unit is out of bounds (ie if len(row) or len(board) < last coordinate)
+        check if the unit coordinate of the last unit is out of bounds (ie if len(row) or len(board) < last coordinate)
+        
         '''
         # call .place_ship() method from Ship class.
         # method changes coordinates to 0-based indexing
@@ -49,6 +50,14 @@ class Player:
         last_ship_unit_coordinates = ship.units[-1]["coordinates"]
         if last_ship_unit_coordinates[0] > self.rows or last_ship_unit_coordinates[1] > self.columns:
             raise Exception("Ship placement out of bounds.")
+
+        # check that for unit in ship.unit, the cooresponding space on the board does not already contain a ship. If yes, throw error. Else, proceed.
+        for unit in ship.units:
+            r = unit["coordinates"][0]
+            c = unit["coordinates"][1]
+            if self.board[r][c] == 1:
+                raise Exception("Desired board spaces already contain a ship. Please choose another space.")
+
 
         # add ship to player.ships list:
         self.ships.append(ship)
