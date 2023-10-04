@@ -10,6 +10,7 @@ class Player:
         '''
         self.rows = rows
         self.columns = columns
+        self.unplaced_ship_lengths = [2, 3, 3, 4, 5]
         self.ships = [] #list of ship objects
         self.board = self.create_board(rows=rows, columns=columns) #status of each space on the player's own board
         # -- empty, ship, miss, hit, full_ship_hit
@@ -33,14 +34,21 @@ class Player:
             board.append(row)
         return board
     
-    def place_ship(self, ship:Ship, orientation:str, row:int, col:int) -> None:
+    def place_ship(self, length:int, orientation:str, row:int, col:int) -> None:
         '''
         Params: Ship object, orientation, row & column
-        Returns: none
+        Returns: none | Exception if ship is overlapping another ship or ship is out of bounds.
         Side effects: adds new ship object to self.ships, updates the board. 
         check if the unit coordinate of the last unit is out of bounds (ie if len(row) or len(board) < last coordinate)
         
         '''
+        #check if ship length is in unplaced_ship_lengths. Throw error if invalid.
+        if length not in self.unplaced_ship_lengths:
+            raise Exception("Invalid ship length. Please choose another.")
+        
+        #create a ship object of the provided length.
+        ship = Ship(length)
+
         # call .place_ship() method from Ship class.
         # method changes coordinates to 0-based indexing
         # ship now stores hit status and coordinates for each unit
@@ -58,9 +66,11 @@ class Player:
             if self.board[r][c] == 1:
                 raise Exception("Desired board spaces already contain a ship. Please choose another space.")
 
-
         # add ship to player.ships list:
         self.ships.append(ship)
+
+        # remove the length of this ship from the list of unplaced_ship_lengths
+        self.unplaced_ship_lengths.remove(length)
 
         # iterate through each unit of ship.units, and change status code of the matching board space
         # to 1.
